@@ -8,11 +8,11 @@
 		<version>3.2.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>mate.academy</groupId>
+	<groupId>book.store</groupId>
 	<artifactId>BooksStore</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>BooksStore</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Books Store</description>
 	<properties>
 		<java.version>17</java.version>
 		<maven.checkstyle.plugin.configLocation>checkstyle.xml</maven.checkstyle.plugin.configLocation>
