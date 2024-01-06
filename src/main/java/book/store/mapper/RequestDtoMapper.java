@@ -1,4 +1,5 @@
 package book.store.mapper;
 
-public interface RequestDtoMapper<> {
+public interface RequestDtoMapper<D, M> {
+    M toModel(D dto);
 }
