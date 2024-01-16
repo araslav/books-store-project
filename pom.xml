@@ -108,7 +108,10 @@
 					<consoleOutput>true</consoleOutput>
 					<failsOnError>true</failsOnError>
 					<linkXRef>false</linkXRef>
-					<sourceDirectories>src</sourceDirectories>
+					<sourceDirectories>
+						<sourceDirectory>src/main/java</sourceDirectory>
+						<sourceDirectory>src/test/java</sourceDirectory>
+					</sourceDirectories>
 				</configuration>
 			</plugin>
 		</plugins>
