@@ -1,7 +1,7 @@
 package book.store.controller;
 
-import book.store.dto.request.CreateBookRequestDto;
-import book.store.dto.response.BookDto;
+import book.store.dto.book.BookDto;
+import book.store.dto.book.CreateBookRequestDto;
 import book.store.service.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
