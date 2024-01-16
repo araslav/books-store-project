@@ -1,0 +1,41 @@
+- changeSet:
+    id: create-books-table
+    author: Yaroslav
+    changes:
+      - createTable:
+          tableName: books
+          columns:
+            - column:
+                name: id
+                type: bigint
+                autoincrement: true
+                constrains:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: title
+                type: varchar(255)
+                constrains:
+                  nullable: false
+            - column:
+                name: author
+                type: varchar(255)
+                constrains:
+                  nullable: false
+            - column:
+                name: isbn
+                type: varchar(255)
+                constrains:
+                  nullable: false
+                  unique: false
+            - column:
+                name: price
+                type: varchar(255)
+                constrains:
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+            - column:
+                name: coverImage
+                type: varchar(255)
