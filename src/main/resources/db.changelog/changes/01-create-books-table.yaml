@@ -1,41 +1,48 @@
-- changeSet:
-    id: create-books-table
-    author: Yaroslav
-    changes:
-      - createTable:
-          tableName: books
-          columns:
-            - column:
-                name: id
-                type: bigint
-                autoincrement: true
-                constrains:
-                  primaryKey: true
-                  nullable: false
-            - column:
-                name: title
-                type: varchar(255)
-                constrains:
-                  nullable: false
-            - column:
-                name: author
-                type: varchar(255)
-                constrains:
-                  nullable: false
-            - column:
-                name: isbn
-                type: varchar(255)
-                constrains:
-                  nullable: false
-                  unique: false
-            - column:
-                name: price
-                type: varchar(255)
-                constrains:
-                  nullable: false
-            - column:
-                name: description
-                type: varchar(255)
-            - column:
-                name: coverImage
-                type: varchar(255)
+databaseChangeLog:
+  - changeSet:
+      id: create-books-table
+      author: Yaroslav
+      changes:
+        - createTable:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: isbn
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: price
+                  type: numeric(10, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: cover_image
+                  type: varchar(255)
+              - column:
+                  name: is_deleted
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
