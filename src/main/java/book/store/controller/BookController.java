@@ -4,6 +4,7 @@ import book.store.dto.book.BookDto;
 import book.store.dto.book.BookSearchParametersDto;
 import book.store.dto.book.CreateBookRequestDto;
 import book.store.service.BookService;
+import jakarta.validation.Valid;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,9 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookController {
     private final BookService bookService;
 
-    @Operation(summary = "Create a new Book")
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public BookDto createBook(@RequestBody CreateBookRequestDto requestDto) {
+    @Operation(summary = "Create a new Book")
+    public BookDto createBook(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.createBook(requestDto);
     }
 
@@ -46,9 +48,11 @@ public class BookController {
         return bookService.findAll(pageable);
     }
 
-    @Operation(summary = "Update Book by id")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping("/{id}")
-    public BookDto updateById(@PathVariable Long id, @RequestBody CreateBookRequestDto requestDto) {
+    @Operation(summary = "Update Book by id")
+    public BookDto updateById(@PathVariable Long id,
+                              @RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.updateById(id, requestDto);
     }
 
