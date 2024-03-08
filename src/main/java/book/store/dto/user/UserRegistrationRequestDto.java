@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 @PasswordMatches
 public record UserRegistrationRequestDto(
         @Email
+        @UniqueEmail
         String email,
         @NotBlank(message = "Password can't be Null or Empty")
         String password,

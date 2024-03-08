@@ -23,6 +23,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isIsset(String email) {
-        return userRepository.findByEmail(email).isPresent();
+        return userRepository.findByEmail(email).isEmpty();
     }
 }
