@@ -1,6 +1,5 @@
 package book.store.security;
 
-import book.store.model.User;
 import book.store.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
