@@ -14,5 +14,6 @@ databaseChangeLog:
               - column:
                   name: role_id
                   type: bigint
+                  valueComputed: "(SELECT id FROM roles WHERE name = 'USER')"
                   constraints:
                     nullable: false
