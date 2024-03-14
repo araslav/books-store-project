@@ -9,7 +9,7 @@ databaseChangeLog:
               - column: {name: email, value: "admin@admin.com"}
               - column: {name: first_name, value: "Admin"}
               - column: {name: last_name, value: "Admin"}
-              - column: {name: password, value: "$2a$12$aZ6a1cBvMaor7MFhwkzSQOK5UYTjzi5X2DOdPYoDD9cS46c4kGuiO"}
+              - column: {name: password, value: "$2a$10$p95Yr5HJEvhK9PbbcXyxF.gHulko4M3CvZY1iYnBWWBk/lBg9W8pa"}
         - insert:
             tableName: users_roles
             columns:
