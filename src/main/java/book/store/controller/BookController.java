@@ -110,7 +110,9 @@ public class BookController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @Operation(summary = "Find Books by params")
+    @Operation(summary = "Find Books by params",
+            description = "Available params: title(books' title, string, multi param), "
+                    + "author(book author, string), isbn(book author, string) ")
     @GetMapping("/search")
     public List<BookDto> searchBooks(BookSearchParametersDto params) {
         return bookService.search(params);
