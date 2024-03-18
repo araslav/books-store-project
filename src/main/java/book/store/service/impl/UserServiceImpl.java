@@ -34,4 +34,9 @@ public class UserServiceImpl implements UserService {
     public boolean isIsset(String email) {
         return userRepository.findByEmail(email).isEmpty();
     }
+
+    @Override
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
 }
