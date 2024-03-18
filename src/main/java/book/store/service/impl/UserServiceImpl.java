@@ -25,9 +25,7 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto save(UserRegistrationRequestDto userDto) {
         User user = userMapper.toModel(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if (user.getRoles() == null || user.getRoles().isEmpty()) {
-            user.setRoles(Set.of(roleRepository.findByName(Role.RoleName.USER)));
-        }
+        user.setRoles(Set.of(roleRepository.findByName(Role.RoleName.USER)));
         userRepository.save(user);
         return userMapper.toDto(user);
     }
