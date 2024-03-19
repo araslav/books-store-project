@@ -7,4 +7,6 @@ public interface UserService {
     UserResponseDto save(UserRegistrationRequestDto user);
 
     boolean isIsset(String email);
+
+    void deleteById(Long id);
 }

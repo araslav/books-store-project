@@ -14,6 +14,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,24 +52,28 @@ public class BookController {
                     @Parameter(name = "coverImage",
                             description = "Book's coverImage",
                             schema = @Schema(type = "string"))})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.createBook(requestDto);
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Find Book by id")
     @GetMapping("/{id}")
     public BookDto getBookById(@PathVariable Long id) {
         return bookService.getBookById(id);
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Find all Books")
     @GetMapping
     public List<BookDto> getAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Update Book by id",
             parameters = {
                     @Parameter(name = "title", required = true, in = ParameterIn.DEFAULT,
@@ -96,6 +101,7 @@ public class BookController {
         return bookService.updateById(id, requestDto);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Delete Book by id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
@@ -103,7 +109,13 @@ public class BookController {
         bookService.deleteById(id);
     }
 
-    @Operation(summary = "Find Books by params")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @Operation(summary = "Find Books by params",
+            description = "Available params: title(book title, string), "
+                    + "author(books' author, string, multi param), "
+                    + "isbn(book author, string). "
+                    + "Url example: localhost:8080/api/books/search"
+                    + "?title=BookTitle&author=Author 2, Author 3&isbn=11111")
     @GetMapping("/search")
     public List<BookDto> searchBooks(BookSearchParametersDto params) {
         return bookService.search(params);
