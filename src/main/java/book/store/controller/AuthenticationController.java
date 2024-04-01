@@ -1,7 +1,10 @@
 package book.store.controller;
 
+import book.store.dto.user.UserLoginRequestDto;
+import book.store.dto.user.UserLoginResponseDTO;
 import book.store.dto.user.UserRegistrationRequestDto;
 import book.store.dto.user.UserResponseDto;
+import book.store.security.AuthenticationService;
 import book.store.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     @Operation(summary = "Register a new Book",
             parameters = {
@@ -47,5 +51,10 @@ public class AuthenticationController {
     @PostMapping("/registration")
     public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto request) {
         return userService.save(request);
+    }
+
+    @PostMapping("/login")
+    public UserLoginResponseDTO login(@RequestBody @Valid UserLoginRequestDto request) {
+        return authenticationService.authenticate(request);
     }
 }
