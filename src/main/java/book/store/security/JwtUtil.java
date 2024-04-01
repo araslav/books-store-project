@@ -13,8 +13,8 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-    private SecretKey secret;
-    @Value("${jwt.experation}")
+    private final SecretKey secret;
+    @Value("${jwt.expiration}")
     private Long expiration;
 
     public JwtUtil(@Value("${jwt.secret}") String secretString) {
