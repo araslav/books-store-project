@@ -1,7 +1,7 @@
 package book.store.controller;
 
 import book.store.dto.user.UserLoginRequestDto;
-import book.store.dto.user.UserLoginResponseDTO;
+import book.store.dto.user.UserLoginResponseDto;
 import book.store.dto.user.UserRegistrationRequestDto;
 import book.store.dto.user.UserResponseDto;
 import book.store.security.AuthenticationService;
@@ -54,7 +54,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public UserLoginResponseDTO login(@RequestBody @Valid UserLoginRequestDto request) {
+    public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto request) {
         return authenticationService.authenticate(request);
     }
 }
