@@ -1,7 +1,9 @@
 package book.store.security;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwe;
+import io.jsonwebtoken.JweHeader;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
@@ -31,11 +33,15 @@ public class JwtUtil {
     }
 
     public boolean isValidToken(String token) {
-        Jwe<Claims> claimsJwe = Jwts.parser()
-                .decryptWith(secret)
-                .build()
-                .parseEncryptedClaims(token);
-        return !claimsJwe.getPayload().getExpiration().before(new Date());
+        try {
+            Jwt<JweHeader, Claims> claimsJwt = Jwts.parser()
+                    .decryptWith(secret)
+                    .build()
+                    .parseEncryptedClaims(token);
+            return !claimsJwt.getPayload().getExpiration().before(new Date());
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new JwtException("Invalid JWT token");
+        }
     }
 
     public String getUsername(String token) {
