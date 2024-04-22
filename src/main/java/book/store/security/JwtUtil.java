@@ -1,12 +1,6 @@
 package book.store.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JweHeader;
-import io.jsonwebtoken.Jwt;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-import java.nio.charset.StandardCharsets;
+import io.jsonwebtoken.*;
 import java.util.Date;
 import java.util.function.Function;
 import javax.crypto.SecretKey;
@@ -20,7 +14,7 @@ public class JwtUtil {
     private Long expiration;
 
     public JwtUtil(@Value("${jwt.secret}") String secretString) {
-        this.secret = Keys.hmacShaKeyFor(secretString.getBytes(StandardCharsets.UTF_8));
+        this.secret = Jwts.SIG.HS256.key().build();
     }
 
     public String generateToken(String email) {
@@ -34,11 +28,11 @@ public class JwtUtil {
 
     public boolean isValidToken(String token) {
         try {
-            Jwt<JweHeader, Claims> claimsJwt = Jwts.parser()
-                    .decryptWith(secret)
+            Jws<Claims> claimsJws = Jwts.parser()
+                    .verifyWith(secret)
                     .build()
-                    .parseEncryptedClaims(token);
-            return !claimsJwt.getPayload().getExpiration().before(new Date());
+                    .parseSignedClaims(token);
+            return !claimsJws.getPayload().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtException("Invalid JWT token");
         }
@@ -49,10 +43,10 @@ public class JwtUtil {
     }
 
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = Jwts.parser()
-                .decryptWith(secret)
+        Claims claims = Jwts.parser()
+                .verifyWith(secret)
                 .build()
-                .parseEncryptedClaims(token)
+                .parseSignedClaims(token)
                 .getPayload();
         return claimsResolver.apply(claims);
     }
