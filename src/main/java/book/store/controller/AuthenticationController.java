@@ -27,7 +27,7 @@ public class AuthenticationController {
     private final UserService userService;
     private final AuthenticationService authenticationService;
 
-    @Operation(summary = "Register a new Book",
+    @Operation(summary = "Register a new User",
             parameters = {
                     @Parameter(name = "email", required = true,
                             description = "User's email, unique",
@@ -53,6 +53,15 @@ public class AuthenticationController {
         return userService.save(request);
     }
 
+    @Operation(summary = "Login user",
+            parameters = {
+                    @Parameter(name = "login", required = true,
+                            description = "User's email",
+                            schema = @Schema(type = "string")),
+                    @Parameter(name = "password", required = true,
+                            description = "Password",
+                            schema = @Schema(type = "string"))
+                    })
     @PostMapping("/login")
     public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto request) {
         return authenticationService.authenticate(request);
