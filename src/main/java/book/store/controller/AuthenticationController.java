@@ -1,7 +1,10 @@
 package book.store.controller;
 
+import book.store.dto.user.UserLoginRequestDto;
+import book.store.dto.user.UserLoginResponseDto;
 import book.store.dto.user.UserRegistrationRequestDto;
 import book.store.dto.user.UserResponseDto;
+import book.store.security.AuthenticationService;
 import book.store.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -22,8 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
-    @Operation(summary = "Register a new Book",
+    @Operation(summary = "Register a new User",
             parameters = {
                     @Parameter(name = "email", required = true,
                             description = "User's email, unique",
@@ -47,5 +51,19 @@ public class AuthenticationController {
     @PostMapping("/registration")
     public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto request) {
         return userService.save(request);
+    }
+
+    @Operation(summary = "Login user",
+            parameters = {
+                    @Parameter(name = "login", required = true,
+                            description = "User's email",
+                            schema = @Schema(type = "string")),
+                    @Parameter(name = "password", required = true,
+                            description = "Password",
+                            schema = @Schema(type = "string"))
+                    })
+    @PostMapping("/login")
+    public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto request) {
+        return authenticationService.authenticate(request);
     }
 }
